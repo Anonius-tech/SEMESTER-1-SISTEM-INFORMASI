@@ -1,0 +1,125 @@
+# Graphical User Interfaces (GUI)
+
+=====================================================================================================
+####################### PROGRAM KEGIATAN 1 - MEMBUAT DATA DIRI ######################################
+=====================================================================================================
+
+import tkinter as tk
+
+def tutup():
+    my_app.quit()
+
+my_app = tk.Tk()
+my_app.title("Data Diri")
+
+judul = tk.Label(my_app, text="Data Diri", font=("Arial", 24))
+judul.pack(pady=10)
+
+nama = tk.Label(my_app, text="Nama\t\t: Naufal Afifkaka Fadhilah", font=("Arial", 14))
+nim = tk.Label(my_app, text="NIM\t\t: L300250028", font=("Arial", 14))
+buku = tk.Label(my_app, text="Buku Favorit\t: Il principle", font=("Arial", 14))
+idola = tk.Label(my_app, text="Idola\t\t: Ali bin abi thalib", font=("Arial", 14))
+motto = tk.Label(my_app, text="Motto\t\t: Jangan Kebanyakan Mikir", font=("Arial", 14))
+
+nama.pack(anchor="w", padx=20)
+nim.pack(anchor="w", padx=20)
+buku.pack(anchor="w", padx=20)
+idola.pack(anchor="w", padx=20)
+motto.pack(anchor="w", padx=20)
+
+btn_tutup = tk.Button(my_app, text="Tutup", command=tutup, font=("Arial", 12))
+btn_tutup.pack(pady=20)
+
+my_app.mainloop()
+
+=====================================================================================================
+################## PROGRAM KEGIATAN 2 - MEMBUAT KALKULATOR SEDERHANA ################################
+=====================================================================================================
+
+# membuat kalkulator sederhana
+import tkinter as tk
+from tkinter import ttk
+
+def hitung(operasi):
+    try:
+        angka1 = float(entry_angka1.get())
+        angka2 = float(entry_angka2.get())
+        
+        if operasi == "+":
+            hasil = angka1 + angka2
+        elif operasi == "-":
+            hasil = angka1 - angka2
+        elif operasi == "x":
+            hasil = angka1 * angka2
+        elif operasi == ":":
+            if angka2 != 0:
+                hasil = angka1 / angka2
+            else:
+                label_hasil.config(text="Error: Tidak bisa dibagi 0")
+                return
+        else:
+            hasil = 0
+        
+      
+        if hasil.is_integer():
+            label_hasil.config(text=str(int(hasil)))
+        else:
+            label_hasil.config(text=str(hasil))
+    
+    except ValueError:
+        label_hasil.config(text="Error: Masukkan angka yang valid")
+
+def buat_tombol(parent, teks, operasi, baris, kolom):
+    """Fungsi untuk membuat tombol operasi"""
+    btn = tk.Button(parent, text=teks, font=("Arial", 14, "bold"),
+                    bg="#f0f0f0", width=5, height=2,
+                    command=lambda: hitung(operasi))
+    btn.grid(row=baris, column=kolom, padx=5, pady=5)
+    return btn
+
+my_app = tk.Tk()
+my_app.title("Kalkulator Sederhana")
+my_app.geometry("400x350")
+my_app.configure(bg="white")
+
+main_frame = tk.Frame(my_app, bg="white")
+main_frame.pack(pady=20)
+
+
+label_angka1 = tk.Label(main_frame, text="Angka 1", font=("Arial", 12, "bold"), bg="white")
+label_angka1.grid(row=0, column=0, sticky="w", padx=10, pady=(0, 5))
+
+entry_angka1 = tk.Entry(main_frame, font=("Arial", 14), width=20, justify="right", relief="solid", bd=1)
+entry_angka1.grid(row=1, column=0, padx=10, pady=(0, 15))
+entry_angka1.insert(0, "123")  
+
+label_angka2 = tk.Label(main_frame, text="Angka 2", font=("Arial", 12, "bold"), bg="white")
+label_angka2.grid(row=2, column=0, sticky="w", padx=10, pady=(0, 5))
+
+entry_angka2 = tk.Entry(main_frame, font=("Arial", 14), width=20, justify="right", relief="solid", bd=1)
+entry_angka2.grid(row=3, column=0, padx=10, pady=(0, 20))
+entry_angka2.insert(0, "1000") 
+
+frame_tombol = tk.Frame(main_frame, bg="white")
+frame_tombol.grid(row=4, column=0, pady=10)
+
+btn_tambah = buat_tombol(frame_tombol, "+", "+", 0, 0)
+btn_kurang = buat_tombol(frame_tombol, "-", "-", 0, 1)
+btn_kali = buat_tombol(frame_tombol, "x", "x", 0, 2)
+btn_bagi = buat_tombol(frame_tombol, ":", ":", 0, 3)
+
+label_hasil_text = tk.Label(main_frame, text="Hasil", font=("Arial", 12, "bold"), bg="white")
+label_hasil_text.grid(row=5, column=0, sticky="w", padx=10, pady=(20, 5))
+
+label_hasil = tk.Label(main_frame, text="1123", font=("Arial", 14, "bold"), 
+                       bg="#e0e0e0", width=20, height=2, relief="solid", bd=1, anchor="e", padx=10)
+label_hasil.grid(row=6, column=0, padx=10, pady=(0, 10))
+
+frame_bawah = tk.Frame(my_app, bg="white")
+frame_bawah.pack(pady=10)
+
+btn_tutup = tk.Button(frame_bawah, text="Tutup", font=("Arial", 12),
+                      bg="#f0f0f0", width=10, command=my_app.quit)
+btn_tutup.pack()
+
+my_app.mainloop()
